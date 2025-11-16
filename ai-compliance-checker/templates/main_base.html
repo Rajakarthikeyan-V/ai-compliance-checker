@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Compliance Checker — Professional UI</title>
+
+  <style>
+    :root{
+      --bg:#f4f6f8; --panel:#ffffff; --muted:#6b7280; 
+      --accent:#0b6ef6; --accent2:#0b97f6;
+      --success:#16a34a;
+      --danger:#ef4444;
+      font-family: 'Inter', sans-serif;
+    }
+    *{box-sizing:border-box;}
+    body{margin:0;background:var(--bg);color:#0f1724;}
+
+    .app{display:flex;min-height:100vh;}
+
+    .sidebar{
+      width:260px;background:#fff;border-right:1px solid #e4e7eb;
+      padding:26px;
+    }
+    .brand{display:flex;align-items:center;gap:12px;}
+    .logo{
+      width:44px;height:44px;border-radius:8px;
+      background:var(--accent);color:white;
+      display:flex;align-items:center;justify-content:center;
+      font-weight:700;
+    }
+    .brand h1{font-size:16px;margin:0;}
+    .small{font-size:13px;color:var(--muted);}
+
+    .nav{margin-top:20px;}
+    .nav a{
+      display:block;padding:10px 12px;
+      border-radius:8px;margin-bottom:6px;
+      text-decoration:none;color:#0f1724;font-weight:600;
+    }
+    .nav a.active{
+      background:#eef4ff;border-left:3px solid var(--accent);
+    }
+
+    /* Main panel */
+    .main{flex:1;padding:24px;}
+    .topbar{
+      display:flex;justify-content:space-between;align-items:center;
+      margin-bottom:20px;
+    }
+    .user-email{font-weight:600;}
+
+    .grid{display:grid;grid-template-columns:1fr 350px;gap:20px;}
+    .card{
+      background:#fff;padding:20px;border-radius:12px;
+      border:1px solid #e5e7eb;box-shadow:0 2px 14px rgba(0,0,0,0.05);
+    }
+
+    .btn{
+      padding:10px 14px;border-radius:8px;
+      font-weight:600;border:none;cursor:pointer;
+    }
+    .btn-primary{background:var(--accent);color:white;}
+    .btn-secondary{background:#e8ecf3;color:#374151;}
+
+    input[type=file]{
+      padding:10px;border:1px solid #d5dae1;
+      border-radius:8px;width:100%;
+    }
+
+    .alert-ok{
+      background:#ecfdf5;border:1px solid #a7f3d0;
+      padding:14px;border-radius:8px;color:#065f46;
+    }
+    .alert-warn{
+      background:#fff7ed;border:1px solid #fed7aa;
+      padding:14px;border-radius:8px;color:#b45309;
+    }
+  </style>
+</head>
+<style>
+  {% if session.get('theme') == 'dark' %}
+    :root{
+      --bg:#0b0f19;
+      --panel:#141821;
+      --muted:#9ca3af;
+      --accent:#3b82f6;
+      --success:#22c55e;
+    }
+    body{ background: var(--bg); color:white; }
+  {% else %}
+    :root{
+      --bg:#f4f6f8;
+      --panel:#ffffff;
+      --muted:#6b7280;
+      --accent:#0b6ef6;
+      --success:#16a34a;
+    }
+    body{ background: var(--bg); color:#0f1724; }
+  {% endif %}
+</style>
+
+
+<body>
+
+<div class="app">
+
+  <aside class="sidebar">
+      <div class="brand">
+        <div class="logo">CC</div>
+        <div>
+          <h1>Compliance Checker</h1>
+          <div class="small">Secure · Reliable</div>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a class="{% if request.path == '/' %}active{% endif %}" href="/">Upload</a>
+        <a class="{% if request.path == '/history' %}active{% endif %}" href="/history">History</a>
+        <a class="{% if request.path == '/settings' %}active{% endif %}" href="/settings">Settings</a>
+
+      </nav>
+
+      <div style="margin-top:20px">
+        <div class="small">SMTP Host:</div>
+        <div class="small"><strong>{{ smtp_host }}</strong></div>
+
+        <div class="small" style="margin-top:8px">Recipients:</div>
+        <div class="small"><strong>{{ email_to }}</strong></div>
+      </div>
+  </aside>
+
+  <main class="main">
+      <div class="topbar">
+        <div class="small">Logged in as</div>
+        <div class="user-email">{{ user_email }}</div>
+      </div>
+
+      <div class="grid">
+          <section>
+            {% block content %}{% endblock %}
+          </section>
+
+          <!-- Right column -->
+          <aside>
+            <div class="card">
+              <h4 style="margin-top:0">Recent Activity</h4>
+              <p class="small">Last processed file: <strong>{{ last_file }}</strong></p>
+              <p class="small">Last Email Status: <strong>{{ last_email }}</strong></p>
+              <p class="small">Google Sheet: <strong>{{ last_sheet }}</strong></p>
+            </div>
+
+            <div style="height:18px"></div>
+
+            <div class="card">
+              <h4 style="margin-top:0">Help</h4>
+              <p class="small">Need UI customization? Ask Nove anytime.</p>
+            </div>
+          </aside>
+      </div>
+  </main>
+
+</div>
+
+</body>
+</html>
