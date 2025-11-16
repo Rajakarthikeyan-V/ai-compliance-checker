@@ -1,0 +1,19 @@
+CREATE YOUR OWN ENVIRONMENT FILE IN THE SAME FOLDER FOR CORRECT EXECUTION AND RUN APP.PY
+
+# Email sending
+EMAIL_TO=RECEIVER@gmail.com
+EMAIL_FROM=SENDER@gmail.com
+EMAIL_PASSWORD=PASS FROM GOOGLE STMP
+
+# SMTP settings (your code expects these names)
+EMAIL_SMTP_HOST=smtp.gmail.com
+EMAIL_SMTP_PORT=587
+
+# Optional - your email greeting name
+EMAIL_TEAM_NAME=Compliance Team
+
+# Google Sheets (disable if not using)
+GOOGLE_SHEETS_ENABLED=false
+GOOGLE_SHEETS_CREDENTIALS=""
+GOOGLE_SHEET_ID=""
+GOOGLE_SHEET_TAB=""
